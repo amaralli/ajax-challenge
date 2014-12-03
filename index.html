@@ -28,9 +28,11 @@
                 -->
                 <form class= "form" ng-submit="postComment()">
                     <div class="form-group">
-                        <rating id="rating" ng-model="newComment.rating" max="5"></rating>
+                        <label>Username:</label>
                         <input type="text" ng-model="newComment.name" name="name" id="name" placeholder="your name (required)" autofocus>
+                        <label>Comment Title</label>
                         <input type="text" ng-model="newComment.title" name="title" id="title" placeholder="comment title here" autofocus>
+                        <label>Comment:</label>
                         <input type="text" ng-model="newComment.body" ng name="body" id="body" placeholder="Your comment here">
                     </div>
 
@@ -50,9 +52,9 @@
 
                  <div id="postedComments" ng-repeat="comment in comments">
                     <h2 class="commentTitle">{{comment.title}}</h2>
-                    <rating class="commentRating">{{comment.rating}}</rating>
                     <p class="commenterName">{{comment.name}}</p>
                     <p class="commentBody">{{comment.body}}</p>
+                 </div>
                 
             </section>
 
