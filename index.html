@@ -9,7 +9,7 @@
     </head>
     <body>
 
-        <main class="container">
+        <main class="container" ng-app="RatingApp" ng-controller="RatingController">
             <section>
                 <img src="img/super-bass-o-matic-76.jpg" alt="product picture" class="product-picture">
                 <h1>The Super Bass-o-Matic '76</h1>
@@ -26,6 +26,18 @@
                 http://angular-ui.github.io/bootstrap/#/rating
                 their script file is included below
                 -->
+                <form class= "form" ng-submit="postComment()">
+                    <div class="form-group">
+                        <rating id="rating" ng-model="newComment.rating" max="5"></rating>
+                        <input type="text" ng-model="newComment.name" name="name" id="name" placeholder="your name (required)" autofocus>
+                        <input type="text" ng-model="newComment.title" name="title" id="title" placeholder="comment title here" autofocus>
+                        <input type="text" ng-model="newComment.body" ng name="body" id="body" placeholder="Your comment here">
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Submit comment</button>
+                    </div>
+                </form>
             </section>
 
             <section>
@@ -35,6 +47,13 @@
                 each comment should also have UI allowing the user to vote up/down the comment
                 as well as delete it
                  -->
+
+                 <div id="postedComments" ng-repeat="comment in comments">
+                    <h2 class="commentTitle">{{comment.title}}</h2>
+                    <rating class="commentRating">{{comment.rating}}</rating>
+                    <p class="commenterName">{{comment.name}}</p>
+                    <p class="commentBody">{{comment.body}}</p>
+                
             </section>
 
         </main>
