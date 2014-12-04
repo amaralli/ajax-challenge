@@ -9,7 +9,7 @@
     </head>
     <body>
 
-        <main class="container" ng-app="RatingApp" ng-controller="RatingController">
+        <main class="container" ng-app="RatingApp" ng-controller="CommentController">
             <section>
                 <img src="img/super-bass-o-matic-76.jpg" alt="product picture" class="product-picture">
                 <h1>The Super Bass-o-Matic '76</h1>
@@ -28,16 +28,27 @@
                 -->
                 <form class= "form" ng-submit="postComment()">
                     <div class="form-group">
+                        <label>Rating:</label>
+                        <rating ng-model="newComment.rating" max="5"></rating>
+                    </div>
+
+                    <div class="form-group">
                         <label>Username:</label>
-                        <input type="text" ng-model="newComment.name" name="name" id="name" placeholder="your name (required)" autofocus>
+                        <input type="text" ng-model="newComment.name" name="name" id="name" placeholder="your name (required)">
+                    </div>
+
+                    <div class="form-group">
                         <label>Comment Title</label>
-                        <input type="text" ng-model="newComment.title" name="title" id="title" placeholder="comment title here" autofocus>
+                        <input type="text" ng-model="newComment.title" name="title" id="title" placeholder="comment title here">
+                    </div>
+
+                    <div class="form-group">
                         <label>Comment:</label>
                         <input type="text" ng-model="newComment.body" ng name="body" id="body" placeholder="Your comment here">
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Submit comment</button>
+                        <button type="submit" class="btn btn-primary" ng-disabled="inserting">Submit comment</button>
                     </div>
                 </form>
             </section>
@@ -50,11 +61,36 @@
                 as well as delete it
                  -->
 
-                 <div id="postedComments" ng-repeat="comment in comments">
-                    <h2 class="commentTitle">{{comment.title}}</h2>
-                    <p class="commenterName">{{comment.name}}</p>
-                    <p class="commentBody">{{comment.body}}</p>
-                 </div>
+                 <table class ="table" ng-if="comments.length !=0">
+                    <thead>
+                        <tr>
+                            <th>Rating</th>
+                            <th>Name</th>
+                            <th>Title</th>
+                            <th>Body</th>
+                            <th>Score</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                         <tr ng-repeat="comment in comments">
+                            <td>
+                                <rating class="commentValue" id="commentRating" ng-model="comment.rating" readonly="true" ng-change="updateComments(comment)">{{comment.rating}}</rating>
+                            </td>
+                            <td>{{comment.title}}</td>
+                             <td>By: {{comment.name}}</td>
+                             <td>{{comment.body}}</td>
+                             <td>{{comment.score}}
+                                <span class="glyphicon glyphicon-arrow-up" ng-click="incrementScore(comment, 1)"></span>
+                                <span class="glyphicon glyphicon-arrow-down" ng-click="incrementScore(comment, -1)">
+                                </span>
+                            </td>
+                            <td>
+                                <input type="checkbox" ng-model="comment.delete" ng-change="deleteComment(comment)">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
                 
             </section>
 
